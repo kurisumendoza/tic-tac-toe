@@ -1,5 +1,13 @@
 'use strict';
 
+const gameBoardContainer = document.getElementById('game-board');
+const boardDisplay = document.querySelectorAll('.marker');
+const resetScoreBtn = document.querySelector('.score-btn');
+const resetBoardBtn = document.querySelector('.board-btn');
+const xScore = document.querySelector('.x-score');
+const oScore = document.querySelector('.o-score');
+const gameResult = document.querySelector('.announce-result');
+
 const gameBoard = (function () {
   const board = Array(9).fill('');
   const winningLines = [
@@ -13,23 +21,24 @@ const gameBoard = (function () {
     [6, 7, 8],
   ];
   let currentMarker = 'x';
-  let hasWinner;
+  let winner = '';
+  let winningCombination = [];
+  xScore.textContent = 0;
+  oScore.textContent = 0;
 
   const insertMarker = function (marker, position) {
-    board[position] = marker;
+    if (board[position] === '') board[position] = marker;
   };
 
   const togglePlayer = function () {
     currentMarker = currentMarker === 'x' ? 'o' : 'x';
   };
 
-  const playerAction = function () {
-    const action = Number(
-      prompt('Enter the position where you want to place your marker')
-    );
-
-    insertMarker(currentMarker, action);
+  const playerAction = function (position) {
+    insertMarker(currentMarker, position);
     checkCombination();
+    displayMarker();
+    togglePlayer();
   };
 
   const checkCombination = function () {
@@ -47,20 +56,82 @@ const gameBoard = (function () {
     })();
 
     if (matchCheck !== -1) {
-      console.log(`Player ${currentMarker.toUpperCase()} Wins!`);
-      hasWinner = true;
+      currentMarker === 'x' ? xScore.textContent++ : oScore.textContent++;
+      winner = `Player ${currentMarker.toUpperCase()} Wins!`;
+      winningCombination = winningLines[matchCheck];
+      addHighlight();
+      displayWinner();
+    }
+
+    if ((playerMoves.length === 5) & (matchCheck === -1)) {
+      winner = 'Tie!';
+      displayWinner();
     }
   };
 
-  const playGame = function () {
-    while (!hasWinner) {
-      playerAction();
-      togglePlayer();
-      console.log(board);
-    }
+  const displayWinner = function () {
+    gameResult.textContent = winner;
   };
 
-  return { playGame };
+  const addHighlight = function () {
+    boardDisplay.forEach((item) => item.classList.remove('win'));
+    winningCombination.forEach((num) => {
+      boardDisplay.forEach((item, i) => {
+        if (i === num) {
+          item.classList.add('win');
+        }
+      });
+    });
+  };
+
+  const winnerCheck = function () {
+    return winner;
+  };
+
+  const resetBoard = function () {
+    board.fill('');
+    winner = '';
+    displayWinner();
+    winningCombination = [];
+    addHighlight();
+    currentMarker = 'x';
+  };
+
+  const resetScore = function () {
+    xScore.textContent = 0;
+    oScore.textContent = 0;
+    resetBoard();
+    winningCombination = [];
+    addHighlight();
+    currentMarker = 'x';
+  };
+
+  return { board, playerAction, winnerCheck, resetScore, resetBoard };
 })();
 
-gameBoard.playGame();
+const displayMarker = function () {
+  boardDisplay.forEach((item, i) => {
+    if (gameBoard.board[i] === '') {
+      item.innerHTML = '';
+    } else {
+      item.innerHTML = `<p class="marker-${gameBoard.board[i]}">${gameBoard.board[i]}</p>`;
+    }
+  });
+};
+
+resetScoreBtn.addEventListener('click', () => {});
+
+gameBoardContainer.addEventListener('click', (e) => {
+  if (gameBoard.winnerCheck() || e.target.textContent) return;
+  if (e.target.getAttribute('data-number') !== null) {
+    gameBoard.playerAction(e.target.dataset.number);
+  }
+});
+resetBoardBtn.addEventListener('click', () => {
+  gameBoard.resetBoard();
+  displayMarker();
+});
+resetScoreBtn.addEventListener('click', () => {
+  gameBoard.resetScore();
+  displayMarker();
+});

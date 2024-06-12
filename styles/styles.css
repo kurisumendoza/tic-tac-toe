@@ -2,5 +2,98 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Roboto, sans-serif;
+  font-family: 'Jua', sans-serif;
+}
+
+body {
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  align-items: center;
+  background-color: #fbc4ab;
+  color: #41444b;
+}
+
+#header h1 {
+  font-size: 2.5rem;
+  margin-top: 0.5rem;
+}
+
+#players {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.player {
+  font-size: 2rem;
+  text-align: end;
+}
+
+.score {
+  font-size: 2rem;
+  width: 50px;
+  margin-left: 1rem;
+  color: #716f81;
+}
+
+#game-board {
+  background-color: #f8edeb;
+  border: 0.3rem solid #716f81;
+  height: 51vh;
+  min-height: 300px;
+  min-width: 300px;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.marker {
+  border: 0.2rem solid #716f81;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.marker-x,
+.marker-o {
+  font-size: 4rem;
+}
+
+.marker-x {
+  color: #e97777;
+}
+
+.marker-o {
+  color: #51829b;
+}
+
+#result {
+  height: 1rem;
+}
+
+#btn-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+#btn-container button {
+  padding: 1rem;
+  border: 0.25rem solid #716f81;
+  color: #716f81;
+  background-color: #f0e3c4;
+  font-size: 1.25rem;
+  width: 8rem;
+  cursor: pointer;
+}
+
+#btn-container .score-btn {
+  background-color: #e97a7a;
+  color: white;
+}
+
+.win {
+  background-color: #b0ebb4;
 }

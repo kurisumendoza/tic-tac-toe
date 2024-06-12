@@ -5,7 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="styles/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+      rel="stylesheet"
+    />
     <script defer src="script/script.js"></script>
   </head>
-  <body></body>
+  <body>
+    <section id="header">
+      <h1>TIC TAC TOE</h1>
+    </section>
+    <section id="game-board">
+      <div class="marker" data-number="0"></div>
+      <div class="marker" data-number="1"></div>
+      <div class="marker" data-number="2"></div>
+      <div class="marker" data-number="3"></div>
+      <div class="marker" data-number="4"></div>
+      <div class="marker" data-number="5"></div>
+      <div class="marker" data-number="6"></div>
+      <div class="marker" data-number="7"></div>
+      <div class="marker" data-number="8"></div>
+    </section>
+    <section id="players">
+      <div class="player">x&middot;</div>
+      <div class="score x-score"></div>
+      <div class="player">o&middot;</div>
+      <div class="score o-score"></div>
+    </section>
+    <section id="result">
+      <div class="announce-result"></div>
+    </section>
+    <section id="btn-container">
+      <button class="score-btn">SCORE RESET</button>
+      <button class="board-btn">BOARD RESET</button>
+    </section>
+  </body>
 </html>
