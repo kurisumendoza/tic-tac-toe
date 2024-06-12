@@ -54,6 +54,11 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.marker:hover {
+  background-color: #d3d3d3;
 }
 
 .marker-x,
@@ -69,6 +74,10 @@ body {
   color: #51829b;
 }
 
+.win {
+  background-color: #b0ebb4;
+}
+
 #result {
   height: 1rem;
 }
@@ -82,18 +91,23 @@ body {
 #btn-container button {
   padding: 1rem;
   border: 0.25rem solid #716f81;
-  color: #716f81;
-  background-color: #f0e3c4;
+  color: #fff;
+  background-color: #b99470;
   font-size: 1.25rem;
   width: 8rem;
   cursor: pointer;
+  transition: 0.2s;
 }
 
 #btn-container .score-btn {
   background-color: #e97a7a;
-  color: white;
 }
 
-.win {
-  background-color: #b0ebb4;
+#btn-container button:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+#btn-container button:active {
+  transform: scale(0.95);
 }
