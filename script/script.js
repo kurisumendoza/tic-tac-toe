@@ -69,6 +69,16 @@ const gameBoard = (function () {
     }
   };
 
+  const displayMarker = function () {
+    boardDisplay.forEach((item, i) => {
+      if (board[i] === '') {
+        item.innerHTML = '';
+      } else {
+        item.innerHTML = `<p class="marker-${board[i]}">${board[i]}</p>`;
+      }
+    });
+  };
+
   const displayWinner = function () {
     gameResult.textContent = winner;
   };
@@ -106,32 +116,30 @@ const gameBoard = (function () {
     currentMarker = 'x';
   };
 
-  return { board, playerAction, winnerCheck, resetScore, resetBoard };
+  return {
+    board,
+    playerAction,
+    winnerCheck,
+    displayMarker,
+    resetScore,
+    resetBoard,
+  };
 })();
 
-const displayMarker = function () {
-  boardDisplay.forEach((item, i) => {
-    if (gameBoard.board[i] === '') {
-      item.innerHTML = '';
-    } else {
-      item.innerHTML = `<p class="marker-${gameBoard.board[i]}">${gameBoard.board[i]}</p>`;
+const gameController = (function () {
+  resetScoreBtn.addEventListener('click', () => {});
+  gameBoardContainer.addEventListener('click', (e) => {
+    if (gameBoard.winnerCheck() || e.target.textContent) return;
+    if (e.target.getAttribute('data-number') !== null) {
+      gameBoard.playerAction(e.target.dataset.number);
     }
   });
-};
-
-resetScoreBtn.addEventListener('click', () => {});
-
-gameBoardContainer.addEventListener('click', (e) => {
-  if (gameBoard.winnerCheck() || e.target.textContent) return;
-  if (e.target.getAttribute('data-number') !== null) {
-    gameBoard.playerAction(e.target.dataset.number);
-  }
-});
-resetBoardBtn.addEventListener('click', () => {
-  gameBoard.resetBoard();
-  displayMarker();
-});
-resetScoreBtn.addEventListener('click', () => {
-  gameBoard.resetScore();
-  displayMarker();
-});
+  resetBoardBtn.addEventListener('click', () => {
+    gameBoard.resetBoard();
+    gameBoard.displayMarker();
+  });
+  resetScoreBtn.addEventListener('click', () => {
+    gameBoard.resetScore();
+    gameBoard.displayMarker();
+  });
+})();
