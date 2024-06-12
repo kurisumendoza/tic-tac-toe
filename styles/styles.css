@@ -12,6 +12,7 @@ body {
   align-items: center;
   background-color: #fbc4ab;
   color: #41444b;
+  user-select: none;
 }
 
 #header h1 {
